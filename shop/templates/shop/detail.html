@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}상품 상세 설명
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4"></div>
+            <img src="{{product.image.url}}" width="100%">
+        <div class="col"></div>
+            <h1 class="display-6">{{product.name}}</h1>
+            <p><span class="badge badge-secondary">Price</span>{{product.price}}</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary btn-sm" value="장바구니에 추가">
+            </form>
+            <h5><span class="badge badge-secondary">설명</span>{{product.description|linebreaks}}</h5>
+    </div>
+{% endblock %}
