@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     'allauth', # 소셜로그인 메인기능
     'allauth.account', #소셜로그인으로 가입한사람들 관리
     'allauth.socialaccount', #socialaccount 관리
-    'allauth.socialaccount.providers.naver'
+    'allauth.socialaccount.providers.naver',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -180,3 +181,5 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # media
 DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
+
+CART_ID = 'cart_items'
