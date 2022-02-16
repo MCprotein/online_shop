@@ -55,6 +55,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop', # signal을 하면 경로를 다 써야 함
+    'django.contrib.sites', # 소셜로그인을 위한
+    'allauth', # 소셜로그인 메인기능
+    'allauth.account', #소셜로그인으로 가입한사람들 관리
+    'allauth.socialaccount', #socialaccount 관리
+    'allauth.socialaccount.providers.naver'
 ]
 
 MIDDLEWARE = [
@@ -147,3 +152,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 로그인 과정 처리 누구한테 맡길거냐
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend', # 장고 기본 유저 백엔드
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+# static
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+AWS_REGION = 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME = 'onlineshop-project'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_REGION)
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = '' # 최상단에 파일이 쌓임
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# 여기까지 설정 후 python manage.py collectstatic
+
+# media
+DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'

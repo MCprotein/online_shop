@@ -17,7 +17,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('shop:product_in_category', args=self.slug) # 상세페이지로 가게
+        return reverse('shop:product_in_category', args=[self.slug]) # 상세페이지로 가게
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='products') # 카테고리가 지워져도 게시글은 남아있다. 대신 카테고리는 null로 설정
@@ -27,7 +27,9 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     meta_description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    stock = models.PositiveIntegerField
+
+    stock = models.PositiveIntegerField(default=1)
+
     available_display = models.BooleanField('Display', default=True)
     available_order = models.BooleanField('Order', default=True)
     created = models.DateTimeField(auto_now_add=True)
