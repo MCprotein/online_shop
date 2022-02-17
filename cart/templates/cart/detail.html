@@ -48,25 +48,25 @@
                 <td >${{ cart.get_product_total }}</td>
             </tr>
             <tr>
-                <td>"{{ cart.coupon.code }}" coupon (${{ cart.coupon.amount }})</td>
+                <td>{{ cart.coupon.code }} coupon (${{ cart.coupon.amount }})</td>
                 <td colspan="4"></td>
-                <td >- ${{ cart.get_discount_total|floatformat:"2" }}</td>
+                <td >-${{ cart.get_discount_total|floatformat:"2" }}</td>
             </tr>
         {% endif %}
         <tr class="total">
             <td>Total</td>
             <td colspan="4"></td>
-            <td class="num">${{ cart.get_total_price|floatformat:"2" }}</td>
+            <td class="num">${{cart.get_total_price|floatformat:"2"}}</td>
         </tr>
         </tbody>
     </table>
     <p>
         Add Coupon:
     </p>
-    <form action='#' method="post">
+    <form action="{% url 'coupon:add' %}" method="post">
         {{ add_coupon }}
-        <input type="submit" value="Add">
         {% csrf_token %}
+        <input type="submit" value="Add">
     </form>
 
     <p class="text-right">

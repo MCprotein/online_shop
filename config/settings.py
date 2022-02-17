@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount', #socialaccount 관리
     'allauth.socialaccount.providers.naver',
     'cart',
+    'coupon',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -183,3 +185,6 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'config.s3media.MediaStorage'
 
 CART_ID = 'cart_items'
+
+IAMPORT_KEY = get_secret("IAMPORT_KEY")
+IAMPORT_SECRET = get_secret("IAMPORT_SECRET")
